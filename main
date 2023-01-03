@@ -1,0 +1,127 @@
+import requests
+import time
+import random
+import csv
+
+file = open('Tokens.csv')
+
+type(file)
+
+csvreader = csv.reader(file)
+tokens = csvreader
+
+for row in csvreader:
+    tokens = row
+
+print(tokens)
+url = "https://discord.com/api/v9/channels/938442774267703386/messages" //discord server channel url
+# https://discord.com/api/v9/channels/934111775568306206/messages
+
+message = [
+"I love turtles",
+"LFG",
+"love this project, so hyped",
+"Grind don't stop bby",
+"WAGMI",
+"We are all gon make it",
+"How yall errbody doing",
+"Im SOOOOO HYPED FOR THIS",
+"The art looks fire",
+"I wonder when mint will be",
+"When will there be new sneak peeks",
+"Who's from Canada",
+"Who's from the US",
+"What's your favourite place to travel",
+"What's your favourite food",
+"So glad I found this project",
+"What should I have for a snack guys?",
+"Bois, you like chips or icecream?",
+"Crazy how fast this server grew",
+"How long has everyone been in the NFT space for?"
+"Holy just ate a whole pizza",
+"It's pretty nice out rn, hbu?",
+"lol",
+"wonder how long i gotta grind 4",
+"what other projects u guys like?",
+"The game release is gonna be sick",
+"I hope the project does some crazy stuff",
+"This project will absolutely rocket",
+"I can't wait to read more on this project",
+"Are you guys pushing p",
+"Whos your favourite artist",
+"what music u guys listen to",
+"WGMI BABY WOO",
+"Wen project moon",
+"Wow the sneak peaks look awesome",
+"For anyone new check out <#insert channel here>",
+"Make sure to check <#insert channel here> before you ask any questions!",
+"I wonder what mint price will be",
+"Anyone know how much it'll be to mint",
+"Is this project on ETH or SOL",
+"When's the next sneak peek dropping?"
+"If you get any scam DMs report em to <insert channel here>",
+"It's getting pretty late for me",
+"Good luck guys!",
+"always griding",
+"Do you guys prefer projects on SOL or ETH",
+"I hope ETH can break 5k soon",
+"I wonder how much longer until we find out when mint is",
+"Wow there's so many new members",
+"The growth has been insane",
+"Hopefully I can get whitelist",
+"How's your day going",
+"Yooooo",
+"Hey what's up",
+"This has to be one of my favourite upcoming collections",
+"I'm loving the art here",
+"Please be careful of any scam DMs",
+"Remember guys that admins won't DM you",
+"This project is going to the moon",
+"I'm getting tired",
+"How did everyone find out about this project",
+"looool",
+"How many WL people are there",
+"Keep grinding everyone!",
+"Need more sneak peeks",
+"Welcome to new members",
+"Lvl 10 soon",
+"Wow chat is so fast it's hard to keep up",
+"There's probably so many bots here",
+"????",
+"Hard to hold convos with how fast chat is",
+"Diamond hands",
+"LFGGG"
+]
+
+payload = {
+    'content': "Message"
+}
+
+proxies={
+    'http': 'http://AAMI4:7M0QHE88@45.84.102.241:6768'
+}
+
+proxyList = ['http://AAMI4:7M0QHE88@45.84.102.241:6768', '', '', '']
+NEW_message = "WL"
+
+msg_delay = 62
+
+while True:
+    for i in range(len(tokens)):
+        header = {
+            'authorization': tokens[i]
+            }
+        proxies={
+            'http': proxyList[i]
+        }
+
+        while payload['content'] == NEW_message:
+            NEW_message = message[random.randrange(0, len(message))]
+        
+        payload['content'] = NEW_message
+        if proxies["http"] == '':
+            r = requests.post(url, data=payload, headers=header)
+        else:
+            r = requests.post(url, data=payload, headers=header, proxies=proxies)
+        print(f"{tokens[i]} said: {payload['content']} using proxy {proxies['http']}")
+        time.sleep(msg_delay/len(tokens))
